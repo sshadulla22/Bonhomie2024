@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registeration</title>
+  <link rel="stylesheet" type="text/css" href="book.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="book.css">
+
+
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+
+</head>
+
+<body>
+
+
+
+  <!-- <main>
+    <div>
+      <h1 class='pop-outin'><strong>Register Now</strong></h1>
+    </div>
+    <br>
+    <section class="slider">
+      <div class="container">
+
+      </div> -->
+
+
+  <!-- <section class="salman">
+        <h1>
+          <span><strong>Bonhomie Events</strong> </span>
+          <div class="message">
+            <div class="word1">Cultural</div>
+            <div class="word2">Sports</div>
+            <div class="word3">Technical</div>
+          </div>
+        </h1>
+        </section> -->
+  <main>
+    <section id="booking-form">
+      <h2>Register Now</h2>
+      <form action="#" method="POST">
+        <label for="model" class="requried">Sports Events</label>
+        <form></form>
+
+        <select id="model" name="model" onchange="updateColorOptions()" required>
+          <option value="" disabled selected>Select a Event</option>
+          <option value="bull007"> Football(Boys/Girls) </option>
+          <option value="pride"> Cricket Open(Boys) </option>
+          <option value="surprise"> Box Criket(Boys/Girls) </option>
+          <option value="bull007"> VollyBall(Boys/Girls)</option>
+          <option value="pride"> Relay 4x100m (Boys/Girls)</option>
+          <option value="surprise"> Tug of war(Boys/Girls)</option>
+          <option value="bull007"> Discuss Throw(Boys/Girls)</option>
+          <option value="pride"> Shotput(Boys/Girls)</option>
+          <option value="surprise"> Badminton(Boys/Girls)</option>
+          <option value="bull007"> Table Tennis(Boys/Girls)</option>
+          <option value="pride"> Chess(Boys/Girls)</option>
+          <option value="surprise">Carrom(Boys/Girls)</option>
+          <option value="surprise"> Throw Ball(Girls)</option>
+          <option value="surprise"> Dodge Ball(Girls)</option>
+          <option value="surprise"> Kho-Kho(Girls)</option>
+        </select><br><br>
+
+        <label for="battery" class="requried">Cultural Event</label>
+        <select id="battery" name="battery" required>
+          <option value="" disabled selected>Select a Event</option>
+          <option value="surprise"> Mushaira </option>
+          <option value="bull007"> Hamd-o-naat & Qirat </option>
+          <option value="pride"> Extempore & Vernacular Speech </option>
+          <option value="surprise"> Poetry Slams </option>
+          <option value="surprise"> Role Play </option>
+          <option value="surprise"> Best Boxing </option>
+          <option value="surprise"> Standup Comedy </option>
+          <option value="surprise"> Doodling </option>
+        </select><br><br>
+
+        <label for="school" class="requried">School</label>
+        <select id="school" name="school" required>
+          <option value="" disabled selected>Select a School</option>
+          <option value="surprise"> SoET</option>
+          <option value="bull007">SoP</option>
+          <option value="pride">SoA </option>
+
+        </select>
+
+        <label for="name" class="requried">Name</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="year" class="requried">Year</label>
+        <input type="year" id="year" name="year" required><br><br>
+
+        <label for="rollno" class="requried">Roll NO</label>
+        <input type="rollno" id="rollno" name="rollno" required><br><br>
+
+        <label for="email" class="requried">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone" class="requried">Contact NO</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+
+        <button class="book-now-button" id="bookNowButton" name="" value="Submit" onclick="checkFormFields()">Register
+          NOW</button>
+
+      </form>
+    </section>
+
+
+
+  </main>
+
+
+
+  <script>
+
+
+
+    function checkFormFields() {
+      const model = document.getElementById('model').value;
+      const school = document.getElementById('school').value;
+      const battery = document.getElementById('battery').value;
+      const name = document.getElementById('name').value;
+      const year = document.getElementById('year').value;
+      const rollno = document.getElementById('rollno').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      //   const address = document.getElementById('address').value;
+      // const bookNowButton = document.getElementById('bookNowButton').value;
+
+
+      console.log('this')
+
+      fetch('http://127.0.0.1:5000/sendmail', {
+        mode: 'cors',
+        method:'POST',
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          'MODEL': model,
+          'SCHOOL':school,
+          'BATTERY':battery,
+          'NAME': name,
+          'YEAR':year,
+          'ROLLNO':rollno,
+          'EMAIL': email,
+          'PHONE':phone
+        })
+      }).
+        then(response => response.json()).
+        then(json => {
+          console.log(json)
+        })
+
+
+      if (
+        model.value !== '' &&
+        // color.value !== '' &&
+        battery.value !== '' &&
+        name.value !== '' &&
+        email.value !== '' &&
+        phone.value !== ''
+
+      ) {
+
+        bookNowButton.disabled = false; // Enable the button
+      } else {
+        bookNowButton.disabled = true; // Disable the button
+      }
+    }
+
+    // window.onload = checkFormFields;
+
+    const formFields = document.querySelectorAll('#model, #color, #battery, #name, #email, #phone, #address');
+
+    // formFields.forEach(field => {
+    //   field.addEventListener('input', checkFormFields);
+    // });
+
+  </script>
+
+  <!-- <script src="js_to_calculator.js"></script> -->
+
+
+</body>
+
+</html>
